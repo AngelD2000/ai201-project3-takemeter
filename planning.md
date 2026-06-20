@@ -2,7 +2,7 @@
 A fine-tuned text classifier that evaluates discourse quality in an online community.
 
 ## Community
-PersonalFinance - This community has high post volume and wide variance in discourse quality. Because the stakes are real (debt, retirement, market anxiety), posts split sharply between emotional panic and rigorous analysis with an additional third mode of transactional "what do I do next" requests. This natural contrast across all three label types makes it a strong fit for a discourse quality classifier.
+Finance - This community has high post volume and wide variance in discourse quality. Because the stakes are real (debt, retirement, market anxiety), posts split sharply between emotional panic and rigorous analysis with an additional third mode of transactional "what do I do next" requests. This natural contrast across all three label types makes it a strong fit for a discourse quality classifier.
 
 ### Quality ordering for this community:
 Strategic > Procedural > Reaction
@@ -44,11 +44,10 @@ Strategic > Procedural > Reaction
 
 ## Data collection plan
 - Collecting examples from r/personalFinance
-- 70 per label
-    - If after 200 examples a label is still underrepresented, search with keywords to get more examples
-        - Sourcing procedural: Scrape the "Hot" and "Top" feeds for standard roadmap questions.
-        - Sourcing strategic: Search for dense mathematical keywords ("marginal tax", "backdoor Roth", "amortization", "S&P 500 returns").
-        - Sourcing reaction: Scrape the "Controversial" feed to capture dogmatic hot takes, and the "New" feed or search keywords ("panicking", "scam", "terrified") for emotional emergencies.
+- If after 200 examples a label is still underrepresented, search with keywords to get more examples
+    - Sourcing procedural: Scrape the "Hot" and "Top" feeds for standard roadmap questions.
+    - Sourcing strategic: Search for dense mathematical keywords ("marginal tax", "backdoor Roth", "amortization", "S&P 500 returns").
+    - Sourcing reaction: Scrape the "Controversial" feed to capture dogmatic hot takes, and the "New" feed or search keywords ("panicking", "scam", "terrified") for emotional emergencies.
 
 ## Evaluation metrics
 **Macro F1:** average F1 across all 3 labels equally. Treats each label as equally important regardless of how many examples it has. This is the right choice for this project since we're targeting 70 per label (balanced) and all three classes matter equally.
