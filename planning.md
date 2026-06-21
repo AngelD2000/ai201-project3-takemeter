@@ -81,3 +81,9 @@ No label below F1 of 0.55 — prevents a situation where overall macro-F1 looks 
 - Formatting & Pipeline Code: Use AI to help write the Python scripts for data scraping (PRAW), data formatting (converting CSV to JSONL), and the Hugging Face / PyTorch fine-tuning loops.
 
 - Discussion buddy to bounce ideas off of
+
+---
+
+## Evaluation logs
+
+Per-run baseline metrics, fine-tuning rounds (showing the warmup_steps=50 → 5 fix), multi-seed sweeps, and sample correct/wrong predictions are logged in [`evaluation_logs.md`](./evaluation_logs.md). The polished evaluation summary is in [`README.md`](./README.md).
