@@ -159,6 +159,25 @@ These three were misclassified across multiple seeded runs — they're not fluke
 - True: **procedural** · Predicted: **strategic** (confidence 0.76)
 - Why it failed: the bidirectional version of error #1. Same "Why would I ever X?" framing, but here the post is asking for an explanation (procedural) rather than arguing a position (strategic). The model can't distinguish these on surface form because they look nearly identical, the actual difference is whether the user has done the analysis or is asking someone else to. This points to a genuine labeling-vs-distribution problem: the dataset doesn't have enough disambiguating examples of each direction.
 
+### Systematic error pattern: the "Why would I ever X?" framing
+
+Looking across **every** seeded run in [`evaluation_logs.md`](./evaluation_logs.md), one error pattern accounts for the plurality of misclassifications and recurs in **both directions** depending on intent. The "Why would I ever X?" / comparison-skepticism post type:
+
+**Direction A — strategic posts predicted as procedural** (when user *is* arguing a position with math):
+- "Why would I ever buy a house vs. just renting and invest the rest?" — wrong in Rounds 1, 2, **and** 3 (most persistent error in the project)
+- "Why are nearer dated corporate bonds yielding less than U.S. treasuries?" — wrong in Rounds 1, 2
+- "Are Index Funds really as good as 'experts' claim?" — wrong in Rounds 1, 2
+
+**Direction B — procedural posts predicted as strategic** (when user is asking for explanation):
+- "Why would a long-term investor ever choose a Mutual Fund over an ETF?" — wrong in seeds 47 and 50
+- "How should an investor evaluate a financial advisor's recommendations?" — wrong in seeds 47 and 50
+
+**Why this pattern persists.** The surface form of these two post types is nearly identical: a question word ("Why would…"), a comparison frame ("X vs Y"), opinion-shaped phrasing ("is it really…"), and roughly the same length. The distinguishing signal in the taxonomy is **structural**: does the user own the analytical work (strategic), or are they asking the reader to provide it (procedural)? That structural signal lives in *how* arguments are made, not in surface features the model's tokenizer + embedding can easily separate.
+
+With only ~140 training examples after the 70/15/15 split, the model sees too few of each "Why would I ever X?" sub-type to learn this structural distinction. It defaults to surface form — and since both sub-types share surface form, the model splits the difference somewhat randomly, which is why the same post types flip directions across seeds.
+
+**The generalizable observation:** the strategic-procedural boundary fails specifically on **comparison-framed skepticism posts** ("Why would I ever / Is X really better than Y / Purpose of X?"). This is a small but identifiable post type — not a generic "the model needs more data" claim, but a specific structural ambiguity the dataset doesn't disambiguate often enough.
+
 ### Higher-level reflection: what the model captured vs. what was intended
 
 The model learned to classify by **surface form** (question shape, panic-keyword density in the title, post length) rather than by the **structural rules** in `planning.md` (math-leading vs math-illustrative; urgency-tone vs tactical-body; argument from evidence vs assertion without evidence).
