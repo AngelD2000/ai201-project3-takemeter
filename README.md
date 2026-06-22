@@ -92,12 +92,12 @@ Full per-run output (baseline + every fine-tuning round + multi-seed sweeps) is 
 
 ### Headline comparison
 
-| | Baseline (zero-shot) | Fine-tuned |
+| | Baseline (zero-shot) | Fine-tuned (seed 50) |
 |---|---|---|
-| Accuracy | **0.57** | **0.90 ± 0.02** (mean across 3 seeds) |
-| Macro F1 | **0.58** | **0.93** (seed 50) |
+| Accuracy | **0.57** | **0.93** |
+| Macro F1 | **0.58** | **0.93** |
 
-Best reproducible single accuracy was 0.93 (seed 50). The detailed per-class metrics and confusion matrix below are from that seed 50 run. See [Robustness check](#robustness-check-is-the-high-accuracy-actually-overfitting) for why we report the mean (0.90 ± 0.02) as the headline rather than any single run.
+Both fine-tuned numbers are from the seed 50 run (the detailed per-class metrics and confusion matrix below come from the same run). Across 3 seeds the **mean accuracy was 0.90 ± 0.02** — see [Robustness check](#robustness-check-is-the-high-accuracy-actually-overfitting) for why that's a more honest characterization than any single run, including seed 50. Per-seed Macro F1 wasn't logged (training JSON only captured accuracy), so the 0.93 Macro F1 here is from seed 50 only — see [the per-class metrics note](#fine-tuned-per-class-metrics-seed-50) for derivation.
 
 ### Fine-tuned per-class metrics (seed 50)
 
